@@ -1,3 +1,4 @@
+//CodePanion Magic!
 $(function() {
 
   var gh_username, gh_pas, gh_url, gh_path, gh_path_len, gh_commit_msg, gh_path_pieces, gh_data;
