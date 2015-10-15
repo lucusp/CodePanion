@@ -1,5 +1,5 @@
 # CodePanion
-Commit Pens to Projects
+Commit Pens to GitHub
 
 This project is primarily for [CodePen](http://codepen.io) enthusiasts. However, any publicly available web url should work as well!
 
