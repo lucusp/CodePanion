@@ -61,7 +61,7 @@ $(function() {
       var repo = github.getRepo(gh_username, gh_path_pieces[0]);
 
       repo.write(gh_path_pieces[1], _path, gh_data, gh_commit_msg, function(err) {
-        $('#data_dump').text(err || gh_data);
+        $('#data_dump').text(err.error || gh_data);
       });
 
     });
