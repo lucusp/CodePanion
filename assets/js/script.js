@@ -1,13 +1,36 @@
 //CodePanion Magic!
 $(function() {
-
+    
   var gh_username, gh_pas, gh_url, gh_path, gh_path_len, gh_commit_msg, gh_path_pieces, gh_data;
+
+  OAuth.initialize('qg3uN6ehTJYw_uXad1AO8iki2WA');
+    
+  $('.sign-in').click(function(e){
+      e.preventDefault();
+      
+      OAuth.popup('github')
+        .done(function(result){
+          console.log(result.access_token);
+          gh_pas = result.access_token;
+          
+          result.me().done(function(data){
+              console.log(data.alias);
+              gh_username = data.alias;
+          });
+      
+      })
+        .fail(function(err){
+          console.log(err)
+      });
+  });
+    
+
 
   $('#gh-commit-changes').click(function(e) {
     e.preventDefault();
 
-    gh_username = $('#gh-username').val();
-    gh_pas = $('#gh-pas').val();
+    //gh_username = $('#gh-username').val();
+    //gh_pas = $('#gh-pas').val();
     gh_url = $('#gh-url').val();
     gh_path = $('#gh-path').val();
     gh_commit_msg = $('#gh-commit-msg').val();
