@@ -28,7 +28,7 @@ $(function() {
 
   $('#gh-commit-changes').click(function(e) {
     e.preventDefault();
-
+    console.log('commit changes');
     //gh_username = $('#gh-username').val();
     //gh_pas = $('#gh-pas').val();
     gh_url = $('#gh-url').val();
@@ -61,7 +61,7 @@ $(function() {
       var repo = github.getRepo(gh_username, gh_path_pieces[0]);
 
       repo.write(gh_path_pieces[1], _path, gh_data, gh_commit_msg, function(err) {
-        $('#data_dump').text(err.error || gh_data);
+        $('#data_dump').text(gh_data);
       });
 
     });
