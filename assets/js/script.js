@@ -23,7 +23,6 @@ $(function() {
           console.log(err)
       });
   });
-    
 
 
   $('#gh-commit-changes').click(function(e) {
@@ -46,24 +45,28 @@ $(function() {
         _path += gh_path_pieces[i] + "/";
       }
     }
+    
+    //create new github js instance
+    var github = new Github({
+      token: gh_pas,
+      auth: 'oauth'
+    });
+    
+    var repo = github.getRepo(gh_username, gh_path_pieces[0]);
 
     $.ajax({
       url: gh_url
-    }).success(function(data) {
+    }).done(function(data) {
 
       gh_data = data;
 
-      var github = new Github({
-        token: gh_pas,
-        auth: 'oauth'
-      });
-
-      var repo = github.getRepo(gh_username, gh_path_pieces[0]);
-
       repo.write(gh_path_pieces[1], _path, gh_data, gh_commit_msg, function(err) {
         $('#data_dump').text(gh_data);
+        console.log(err);
       });
 
+    }).fail(function(data, err){
+      console.log(err);
     });
 
   });
