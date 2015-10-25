@@ -17,7 +17,7 @@
     
     OAuth.initialize('qg3uN6ehTJYw_uXad1AO8iki2WA'); /* global OAuth */
     
-    signIn.on('click', function(e){
+    signIn.onclick = function(e){
         e.preventDefault();
         
           OAuth.popup('github')
@@ -34,9 +34,9 @@
             .fail(function(err){
               console.log(err);
           });
-    });
+    };
     
-    commit.on('click', function(e){
+    commit.onclick = function(e){
         e.preventDefault();
         
         gh_url = document.getElementById('gh-url').value;
@@ -83,7 +83,7 @@
         
         xhr.send();
         
-    });
+    };
     
     
     
