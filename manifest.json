@@ -1,0 +1,26 @@
+{
+  "name": "CodePanion",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Github integration into CodePen",
+  "icons":
+   {
+      "128": "assets/icon.png",
+      "16": "assets/icon.png",
+      "48": "assets/icon.png"
+   },
+  "permissions": [ "http://codepen.io/*" ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.codepen.io/*/pen/*", "*://*.codepen.io/pen/*"],
+      "css": ["css/codepanion.css"],
+      "js": ["js/codepanion.js"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "CodePanion",
+    "default_icon": "assets/icon.png"
+  },
+  "externally_connectable": { "matches": ["https://oauth.io/"] },
+  "web_accessible_resources": [ "codepanion.html" ]
+}
