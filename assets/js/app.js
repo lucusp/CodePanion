@@ -15,19 +15,39 @@
     commit = document.getElementsByTagName('button')[1],
     results = document.getElementById('data_dump');
     
+    //create new github js instance
+    var github = new Github({
+      token: 'null',
+      auth: 'oauth'
+    });
+    
     OAuth.initialize('qg3uN6ehTJYw_uXad1AO8iki2WA'); /* global OAuth */
+    
+    var gh = OAuth.create('github');
+    if(gh){
+      console.log(gh.access_token);
+      github.token = gh.access_token
+      gh.me().done(function(data){
+        console.log(data.alias);
+        gh_username = data.alias;
+        ghUser();
+        
+      });
+    }
     
     signIn.onclick = function(e){
         e.preventDefault();
         
-          OAuth.popup('github')
+          OAuth.popup('github', {cache: true})
             .done(function(result){
               console.log(result.access_token);
-              gh_pas = result.access_token;
+              github.token = result.access_token;
               
               result.me().done(function(data){
                   console.log(data.alias);
                   gh_username = data.alias;
+                  ghUser();
+                  
               });
           
           })
@@ -35,6 +55,13 @@
               console.log(err);
           });
     };
+    
+    function ghUser(){
+      var user = github.getUser();
+      user.repos(function(err, repos){
+        console.log(repos);
+      });
+    }
     
     commit.onclick = function(e){
         e.preventDefault();
@@ -54,12 +81,6 @@
             _path += gh_path_pieces[i] + "/";
           }
         }
-        
-        //create new github js instance
-        var github = new Github({
-          token: gh_pas,
-          auth: 'oauth'
-        });
         
         var repo = github.getRepo(gh_username, gh_path_pieces[0]);
         
