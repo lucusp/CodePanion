@@ -1,0 +1,58 @@
+#codepanion > svg {
+  margin-right: 3px;
+}
+
+.cp_modal {
+  background: white;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  position: absolute;
+  top: 100%;
+  padding: 5px 0;
+  width: 200px;
+  height: 200px;
+  color: #222;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: -webkit-transform 0.15s,  opacity 0.15s;
+  transition: transform 0.15s,  opacity 0.15s;
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+  -webkit-transform-origin: top right;
+  -ms-transform-origin: top right;
+  transform-origin: top right;
+  z-index: 9999;
+}
+
+.cp_modal {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 75vw;
+  left: 50%;
+  top: 70px;
+  -webkit-transform: scale(0.9) translateX(-50%);
+  -ms-transform: scale(0.9) translateX(-50%);
+  transform: scale(0.9) translateX(-50%);
+  max-height: 75vh;
+  min-width: 850px;
+  max-width: 1150px;
+  padding: 0;
+  color: white;
+  z-index: 201;
+}
+
+.cp_modal.open {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: scale(1) translateX(-50%);
+  -ms-transform: scale(1) translateX(-50%);
+  transform: scale(1) translateX(-50%);
+}
