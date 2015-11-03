@@ -9,7 +9,7 @@
       "16": "assets/icon.png",
       "48": "assets/icon.png"
    },
-  "permissions": [ "http://codepen.io/*" ],
+  "permissions": [ "http://codepen.io/*", "storage"],
   "content_scripts": [
     {
       "matches": ["*://*.codepen.io/*/pen/*", "*://*.codepen.io/pen/*"],
@@ -21,6 +21,9 @@
     "default_title": "CodePanion",
     "default_icon": "assets/icon.png"
   },
-  "externally_connectable": { "matches": ["https://oauth.io/"] },
-  "web_accessible_resources": [ "codepanion.html" ]
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["js/oauth.js", "js/github.js", "js/main.js"]
+  },
+  "externally_connectable": { "matches": ["https://oauth.io/*"] }
 }

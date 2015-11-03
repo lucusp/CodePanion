@@ -6,8 +6,8 @@ button.innerHTML = '<svg viewBox="0 0 1024 1024"><path d="M512 0C229.252 0 0 229
 document.getElementsByClassName('secondary-nav')[0].insertBefore(button, document.getElementsByClassName('secondary-nav')[0].childNodes[6]);
 
 var container = document.createElement('div');
+container.setAttribute('id', 'cp_modal');
 container.setAttribute('class', 'cp_modal');
-
 document.body.appendChild(container);
 
 var overlay = document.getElementById('popup-overlay');
@@ -24,3 +24,17 @@ document.getElementById('popup-overlay').onclick = function() {
   this.style.display = "none";
   container.classList.remove('open');
 }
+
+var port = chrome.runtime.connect({ name: "githubAction" });
+
+port.postMessage('clone');
+
+port.onMessage.addListener(function(message) {
+  if (message.cloneResponse) {
+    var repo = message.cloneResponse;
+
+    repo.forEach(function(repo) {
+      
+    });
+  }
+});

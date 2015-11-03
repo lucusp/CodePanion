@@ -1,5 +1,10 @@
+#codepanion {
+  border: 3px solid #343436;
+}
+
 #codepanion > svg {
   margin-right: 3px;
+  fill: #AEAEAE;
 }
 
 .cp_modal {
@@ -45,8 +50,9 @@
   min-width: 850px;
   max-width: 1150px;
   padding: 0;
-  color: white;
+  color: black;
   z-index: 201;
+  font-size: 15px;
 }
 
 .cp_modal.open {
