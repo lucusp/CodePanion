@@ -13,7 +13,8 @@
     var gh_username, gh_pas, gh_url, gh_path, gh_path_len, gh_commit_msg, gh_path_pieces, gh_data,
     signIn = document.getElementsByTagName('button')[0],
     commit = document.getElementsByTagName('button')[1],
-    results = document.getElementById('data_dump');
+    results = document.getElementById('data_dump'),
+    user;
         
     //create new github js instance
     var github = new Github({
@@ -31,22 +32,29 @@
       gh.me().done(function(data){
         console.log(data.alias);
         gh_username = data.alias;
+        
+        //gitUser(gh_username);
       });
+      
     } 
-    
     
     //sign in with the click
     signIn.onclick = function(e){
         e.preventDefault();
         
-          OAuth.popup('github', {cache: true})
+        OAuth.clearCache();        
+        
+          OAuth.popup('github'/*, {cache: true}*/)
             .done(function(result){
               console.log(result.access_token);
               github.token = result.access_token;
               
               result.me().done(function(data){
+                  console.log(JSON.stringify(data));
                   console.log(data.alias);
                   gh_username = data.alias;
+                  
+                  gitUser(gh_username);
               });
           
           })
@@ -54,6 +62,14 @@
               console.log(err);
           });
     };
+    
+    // move this
+    function gitUser(username){
+      user = github.getUser();
+      user.userRepos(username, function(err, repos){
+        console.log(repos);
+      });
+    }
     
     commit.onclick = function(e){
         e.preventDefault();
