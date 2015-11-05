@@ -25,5 +25,8 @@
   "background": {
     "scripts": ["js/oauth.js", "js/github.js", "js/main.js"]
   },
-  "externally_connectable": { "matches": ["https://oauth.io/*"] }
+  "externally_connectable": { "matches": ["https://oauth.io/*"] },
+   "web_accessible_resources": [
+    "codepanion.html"
+  ]
 }

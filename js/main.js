@@ -26,28 +26,16 @@ chrome.runtime.onConnect.addListener(function(port) {
         github.repo = [];
 
         repos.forEach(function(repo) {
-
-        });
-
-        port.postMessage({ cloneResponse: github.repo });
-      });
-
-      function getRepoTree(repo) {
-        repo.listBranches(function(err, branches) {
-
-          branches.forEach(function(branch) {
-
-            repo.getTree(branch, function(err, tree) {
-
-              tree.forEach(function(file) {
-
-              });
+          github.repo.push(repo.name);
+          githubInstance.getRepo(github.username, repo.name).listBranches(function(err, branches) {
+            branches.forEach(function(branch) {
 
             });
-
           });
         });
-      }
+
+        port.postMessage({ cloneResponse:  });
+      });
     }
-  });
-});
+  }
+}):

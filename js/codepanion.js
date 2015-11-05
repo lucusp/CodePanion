@@ -1,14 +1,13 @@
 var button = document.createElement('button');
 button.setAttribute('id', 'codepanion');
 button.setAttribute('class', 'button button-medium');
-button.innerHTML = '<svg viewBox="0 0 1024 1024"><path d="M512 0C229.252 0 0 229.25199999999995 0 512c0 226.251 146.688 418.126 350.155 485.813 25.593 4.686 34.937-11.125 34.937-24.626 0-12.188-0.469-52.562-0.718-95.314-128.708 23.46-161.707-31.541-172.469-60.373-5.525-14.809-30.407-60.249-52.398-72.263-17.988-9.828-43.26-33.237-0.917-33.735 40.434-0.476 69.348 37.308 78.471 52.75 45.938 77.749 119.876 55.627 148.999 42.5 4.654-32.999 17.902-55.627 32.501-68.373-113.657-12.939-233.22-56.875-233.22-253.063 0-55.94 19.968-101.561 52.658-137.404-5.22-12.999-22.844-65.095 5.063-135.563 0 0 42.937-13.749 140.811 52.501 40.811-11.406 84.594-17.031 128.124-17.22 43.499 0.188 87.314 5.874 128.188 17.28 97.689-66.311 140.686-52.501 140.686-52.501 28 70.532 10.375 122.564 5.124 135.499 32.811 35.844 52.626 81.468 52.626 137.404 0 196.686-119.751 240-233.813 252.686 18.439 15.876 34.748 47.001 34.748 94.748 0 68.437-0.686 123.627-0.686 140.501 0 13.625 9.312 29.561 35.25 24.562C877.436 929.998 1024 738.126 1024 512 1024 229.25199999999995 794.748 0 512 0z" /></svg> Github';
+button.innerHTML = '<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g> <path fill-rule="evenodd" clip-rule="evenodd" fill="#aeaeae" d="M8,0.2c-4.4,0-8,3.6-8,8c0,3.5,2.3,6.5,5.5,7.6 C5.9,15.9,6,15.6,6,15.4c0-0.2,0-0.7,0-1.4C3.8,14.5,3.3,13,3.3,13c-0.4-0.9-0.9-1.2-0.9-1.2c-0.7-0.5,0.1-0.5,0.1-0.5 c0.8,0.1,1.2,0.8,1.2,0.8C4.4,13.4,5.6,13,6,12.8c0.1-0.5,0.3-0.9,0.5-1.1c-1.8-0.2-3.6-0.9-3.6-4c0-0.9,0.3-1.6,0.8-2.1 c-0.1-0.2-0.4-1,0.1-2.1c0,0,0.7-0.2,2.2,0.8c0.6-0.2,1.3-0.3,2-0.3c0.7,0,1.4,0.1,2,0.3c1.5-1,2.2-0.8,2.2-0.8 c0.4,1.1,0.2,1.9,0.1,2.1c0.5,0.6,0.8,1.3,0.8,2.1c0,3.1-1.9,3.7-3.7,3.9C9.7,12,10,12.5,10,13.2c0,1.1,0,1.9,0,2.2 c0,0.2,0.1,0.5,0.6,0.4c3.2-1.1,5.5-4.1,5.5-7.6C16,3.8,12.4,0.2,8,0.2z"></path> </g></svg>GitHub';
 
-document.getElementsByClassName('secondary-nav')[0].insertBefore(button, document.getElementsByClassName('secondary-nav')[0].childNodes[6]);
+document.getElementsByClassName('secondary-nav')[0].insertBefore(button, document.getElementById('edit-settings'));
 
 var container = document.createElement('div');
 container.setAttribute('id', 'cp_modal');
 container.setAttribute('class', 'cp_modal');
-document.body.appendChild(container);
 
 var overlay = document.getElementById('popup-overlay');
 
@@ -19,6 +18,34 @@ button.onclick = function() {
 
   container.classList.toggle('open');
 };
+
+var xmr = new XMLHttpRequest();
+
+xmr.open("GET", chrome.extension.getURL("codepanion.html"), true );
+xmr.send(null);
+
+xmr.onreadystatechange = function() {
+  if(xmr.readyState === 4) {
+    container.innerHTML = xmr.responseText;
+    document.body.appendChild(container);
+
+    var dropdowns = document.getElementsByClassName('dropdown');
+    for(var x = 0; x < dropdowns.length; x++) {
+      dropdowns[x].onclick = function() {
+        this.classList.toggle('dropdown-open');
+
+        var items = this.getElementsByClassName('dropdown-item');
+        var select = this.getElementsByClassName('dropdown-select')[0];
+
+        for(var x = 0; x < items.length; x++) {
+          items[x].onclick = function(event) {
+            select.innerHTML = event.target.innerHTML;
+          }
+        }
+      }
+    }
+  }
+}
 
 document.getElementById('popup-overlay').onclick = function() {
   this.style.display = "none";
@@ -34,7 +61,7 @@ port.onMessage.addListener(function(message) {
     var repo = message.cloneResponse;
 
     repo.forEach(function(repo) {
-      
+
     });
   }
 });
