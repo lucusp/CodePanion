@@ -5,5 +5,7 @@ The CodePanion Extension puts GitHub directly into CodePen. You can clone and co
 
 Lucus Pettigrew ([@lucusp](http://twitter.com/lucusp))
 Harris Carney ([@harriscarney](http://twitter.com/harriscarney))
+
+
 [![forthebadge](http://forthebadge.com/images/badges/built-by-codebabes.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/made-with-crayons.svg)](http://forthebadge.com)
