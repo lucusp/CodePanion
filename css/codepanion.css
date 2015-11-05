@@ -115,6 +115,8 @@
   overflow: hidden;
   -webkit-user-select: none;
   color: #444;
+
+  transition: height 0.1s ease-in-out;
 }
 
 .dropdown .dropdown-top-bar {
@@ -137,9 +139,11 @@
   top: 0;
   bottom: 0;
   margin: auto;
+
+  transition: transform 0.1s ease-in-out;
 }
 
-.dropdown.dropdown-open .dropdown-top-bar > span > .nc-icon {
+.dropdown.dropdown-open .dropdown-top-bar > .nc-icon {
   transform: rotate(180deg);
 }
 
