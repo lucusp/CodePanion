@@ -69,7 +69,7 @@ xmr.onreadystatechange = function() {
         items[x].onclick = function(event) {
           select.innerHTML = event.target.innerHTML;
           github.selectedBranch = event.target.innerHTML;
-          port.postMessage({ getTree:  github});
+          port.postMessage({ getTree:  github });
         }
       }
     }
@@ -93,8 +93,14 @@ port.onMessage.addListener(function(message) {
       branchItem.innerHTML = branch;
       branchItem.setAttribute('class', 'dropdown-item');
       branchDropdown.appendChild(branchItem);
+      if(branches.length === 1) {
+        document.getElementsByClassName('branch-dropdown')[0].getElementsByClassName('dropdown-select')[0].innerHTML = branch;
+        github.selectedBranch = branch;
+        port.postMessage({ getTree:  github });
+      } else {
+        document.getElementsByClassName('branch-dropdown')[0].getElementsByClassName('dropdown-select')[0].innerHTML = 'Branch';
+      }
     });
-    document.getElementsByClassName('branch-dropdown')[0].getElementsByClassName('dropdown-select')[0].innerHTML = 'Branch';
   }
 
   if(message.returnTree) {
