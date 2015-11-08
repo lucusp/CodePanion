@@ -109,6 +109,11 @@ port.onMessage.addListener(function(message) {
       treeItem.innerHTML = item.path;
       if(item.type === 'blob') {
         treeItem.setAttribute('class', 'file');
+        if(item.path.indexOf('html') > -1 || item.path.indexOf('css') > -1 || item.path.indexOf('js') > -1) {
+          treeItem.onclick = function() {
+            treeItem.classList.toggle('checked');
+          }
+        }
       } else {
         treeItem.setAttribute('class', 'folder');
       }
