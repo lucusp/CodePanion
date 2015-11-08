@@ -31,6 +31,15 @@ chrome.runtime.onConnect.addListener(function(port) {
     }
 
     if (message.getTree) {
+      function sortTree(entry) {
+        if(entry.type === 'tree') {
+          return -1;
+        } else {
+          return 1;
+        }
+
+        return 0;
+      }
       var githubInstance = new Github({
         token: github.token,
         auth: 'oauth'
@@ -42,6 +51,7 @@ chrome.runtime.onConnect.addListener(function(port) {
         tree.forEach(function(item) {
           getTree.push(item);
         });
+        getTree.sort(sortTree);
         port.postMessage({ returnTree: getTree });
       });
     }

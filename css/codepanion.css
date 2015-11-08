@@ -109,9 +109,8 @@
 }
 
 .dropdown {
-  float: left;
   display: inline-block;
-  position: relative;
+  position: fixed;
   margin-top: 5px;
   cursor: pointer; 
   font-family: 'Lato';
@@ -121,6 +120,7 @@
   overflow: hidden;
   -webkit-user-select: none;
   color: #444;
+  z-index: 9999;
 
   transition: height 0.1s ease-in-out;
 }
@@ -130,7 +130,6 @@
   display: block;
   width: inherit;
   height: 40px;
-  /*padding: 0 10px;*/
   line-height: 40px;
   font-size: 14px;
   background: #f9f9f9;
@@ -181,14 +180,14 @@
 
 .branch-dropdown {
   width: 120px;
-  float: right;
+  right: 20px;
 }
 
 .file-browser {
   margin-top: 60px;
   width: 100%; 
   height: 400px;
-  background: #f4f4f4;
+  /*background: #f4f4f4;*/
 }
 
 .file-browser ul li {
@@ -200,6 +199,7 @@
   line-height: 40px;
   padding-left: 10px;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .file-browser ul li:hover {
@@ -207,14 +207,23 @@
   color: #fff;
 }
 
+.folder:hover:before {
+  background-image: url('data:image/svg+xml;utf8,<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g><path fill="#fff" d="M15,3H8.4L5.7,0.3C5.5,0.1,5.3,0,5,0H1C0.4,0,0,0.4,0,1v14c0,0.6,0.4,1,1,1h14c0.6,0,1-0.4,1-1V4 C16,3.4,15.6,3,15,3z"></path></g></svg>');
+}
+
+.file:hover:before {
+  background-image: url('data:image/svg+xml;utf8,<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g><path fill="#fff" d="M15,15V5l-5-5H2C1.4,0,1,0.4,1,1v14c0,0.6,0.4,1,1,1h12C14.6,16,15,15.6,15,15z M3,2h6v4h4v8H3V2z"></path></g></svg>');
+}
+
 .folder:before {
   content: '';
   position: relative;
   display: inline-block;
   margin-right: 10px;
+  vertical-align: middle;
   width: 16px;
   height: 16px;
-  background-image: url('data:image/svg+xml;utf8,<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g><path fill="#444444" d="M15,3H8.4L5.7,0.3C5.5,0.1,5.3,0,5,0H1C0.4,0,0,0.4,0,1v14c0,0.6,0.4,1,1,1h14c0.6,0,1-0.4,1-1V4 C16,3.4,15.6,3,15,3z"></path></g></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g><path fill="#0ebeff" d="M15,3H8.4L5.7,0.3C5.5,0.1,5.3,0,5,0H1C0.4,0,0,0.4,0,1v14c0,0.6,0.4,1,1,1h14c0.6,0,1-0.4,1-1V4 C16,3.4,15.6,3,15,3z"></path></g></svg>');
 }
 
 .file:before {
@@ -222,7 +231,8 @@
   position: relative;
   display: inline-block;
   margin-right: 10px;
+  vertical-align: middle;
   width: 16px;
   height: 16px;
-  background-image: url('data:image/svg+xml;utf8,<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g><path fill="#444444" d="M15,15V5l-5-5H2C1.4,0,1,0.4,1,1v14c0,0.6,0.4,1,1,1h12C14.6,16,15,15.6,15,15z M3,2h6v4h4v8H3V2z"></path></g></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g><path fill="#666666" d="M15,15V5l-5-5H2C1.4,0,1,0.4,1,1v14c0,0.6,0.4,1,1,1h12C14.6,16,15,15.6,15,15z M3,2h6v4h4v8H3V2z"></path></g></svg>');
 }

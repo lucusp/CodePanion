@@ -48,6 +48,10 @@ xmr.onreadystatechange = function() {
 
       for(var x = 0; x < items.length; x++) {
         items[x].onclick = function(event) {
+          var fileBrowser = document.getElementsByClassName('file-browser')[0].getElementsByTagName('ul')[0];
+          while (fileBrowser.firstChild) {
+            fileBrowser.removeChild(fileBrowser.firstChild);
+          }
           select.innerHTML = event.target.innerHTML;
           github.selectedRepo = event.target.innerHTML;
           port.postMessage({ getBranch: event.target.innerHTML });
@@ -90,6 +94,7 @@ port.onMessage.addListener(function(message) {
       branchItem.setAttribute('class', 'dropdown-item');
       branchDropdown.appendChild(branchItem);
     });
+    document.getElementsByClassName('branch-dropdown')[0].getElementsByClassName('dropdown-select')[0].innerHTML = 'Branch';
   }
 
   if(message.returnTree) {
