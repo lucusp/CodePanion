@@ -94,14 +94,20 @@ port.onMessage.addListener(function(message) {
 
   if(message.returnTree) {
     var tree = message.returnTree;
-    var fileBrowser = document.getElementsByClassName('file-browser')[0];
+    var fileBrowser = document.getElementsByClassName('file-browser')[0].getElementsByTagName('ul')[0];
     while (fileBrowser.firstChild) {
       fileBrowser.removeChild(fileBrowser.firstChild);
     }
     tree.forEach(function(item) {
-      var treeItem = document.createElement('div');
-      treeItem.innerHTML = item;
-      document.getElementsByClassName('file-browser')[0].appendChild(treeItem);
+      var treeItem = document.createElement('li');
+      console.log(item);
+      treeItem.innerHTML = item.path;
+      if(item.type === 'blob') {
+        treeItem.setAttribute('class', 'file');
+      } else {
+        treeItem.setAttribute('class', 'folder');
+      }
+      fileBrowser.appendChild(treeItem);
     });
   }
 

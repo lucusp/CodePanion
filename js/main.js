@@ -40,7 +40,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
       githubInstance.getRepo(github.username, message.getTree.selectedRepo).getTree(message.getTree.selectedBranch, function(err, tree) {
         tree.forEach(function(item) {
-          getTree.push(item.path);
+          getTree.push(item);
         });
         port.postMessage({ returnTree: getTree });
       });
