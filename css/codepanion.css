@@ -47,7 +47,7 @@
   -ms-flex-direction: column;
   flex-direction: column;
   width: 50vw;
-  height: 75vh;
+  max-height: 450px;
   left: 50%;
   top: 70px;
   -webkit-transform: scale(0.9) translateX(-50%);
@@ -108,7 +108,7 @@
   overflow: auto;
   background: #f9f9f9;
   padding: 20px !important;
-  height: 75vh;
+  height: 450px;
 }
 
 .dropdown {
