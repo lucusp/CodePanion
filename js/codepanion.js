@@ -1,3 +1,10 @@
+var port = chrome.runtime.connect({ name: "githubAction" });
+
+var github = {
+  selectedRepo: null,
+  selectedBranch: null
+}
+
 var button = document.createElement('button');
 button.setAttribute('id', 'codepanion');
 button.setAttribute('class', 'button button-medium');
@@ -26,21 +33,39 @@ xmr.send(null);
 
 xmr.onreadystatechange = function() {
   if(xmr.readyState === 4) {
+    port.postMessage('getRepos');
     container.innerHTML = xmr.responseText;
     document.body.appendChild(container);
 
     var dropdowns = document.getElementsByClassName('dropdown');
-    for(var x = 0; x < dropdowns.length; x++) {
-      dropdowns[x].onclick = function() {
-        this.classList.toggle('dropdown-open');
+    var repoSelect = document.getElementsByClassName('repo-dropdown')[0];
+    var branchSelect = document.getElementsByClassName('branch-dropdown')[0];
 
-        var items = this.getElementsByClassName('dropdown-item');
-        var select = this.getElementsByClassName('dropdown-select')[0];
+    repoSelect.onclick = function() {
+      this.classList.toggle('dropdown-open');
+      var items = this.getElementsByClassName('dropdown-item');
+      var select = this.getElementsByClassName('dropdown-select')[0];
 
-        for(var x = 0; x < items.length; x++) {
-          items[x].onclick = function(event) {
-            select.innerHTML = event.target.innerHTML;
-          }
+      for(var x = 0; x < items.length; x++) {
+        items[x].onclick = function(event) {
+          select.innerHTML = event.target.innerHTML;
+          github.selectedRepo = event.target.innerHTML;
+          port.postMessage({ getBranch: event.target.innerHTML });
+        }
+      }
+    }
+
+    branchSelect.onclick = function() {
+      this.classList.toggle('dropdown-open');
+
+      var items = this.getElementsByClassName('dropdown-item');
+      var select = this.getElementsByClassName('dropdown-select')[0];
+
+      for(var x = 0; x < items.length; x++) {
+        items[x].onclick = function(event) {
+          select.innerHTML = event.target.innerHTML;
+          github.selectedBranch = event.target.innerHTML;
+          port.postMessage({ getTree:  github});
         }
       }
     }
@@ -52,16 +77,45 @@ document.getElementById('popup-overlay').onclick = function() {
   container.classList.remove('open');
 }
 
-var port = chrome.runtime.connect({ name: "githubAction" });
-
-port.postMessage('clone');
-
 port.onMessage.addListener(function(message) {
-  if (message.cloneResponse) {
-    var repo = message.cloneResponse;
+  if(message.returnBranches) {
+    var branches = message.returnBranches;
+    var branchDropdown = document.getElementsByClassName('branch-dropdown')[0].getElementsByTagName('ul')[0];
+    while (branchDropdown.firstChild) {
+      branchDropdown.removeChild(branchDropdown.firstChild);
+    }
+    branches.forEach(function(branch) {
+      var branchItem = document.createElement('li');
+      branchItem.innerHTML = branch;
+      branchItem.setAttribute('class', 'dropdown-item');
+      branchDropdown.appendChild(branchItem);
+    });
+  }
 
-    repo.forEach(function(repo) {
+  if(message.returnTree) {
+    var tree = message.returnTree;
+    var fileBrowser = document.getElementsByClassName('file-browser')[0];
+    while (fileBrowser.firstChild) {
+      fileBrowser.removeChild(fileBrowser.firstChild);
+    }
+    tree.forEach(function(item) {
+      var treeItem = document.createElement('div');
+      treeItem.innerHTML = item;
+      document.getElementsByClassName('file-browser')[0].appendChild(treeItem);
+    });
+  }
 
+  if(message.returnRepos) {
+    var repos = message.returnRepos;
+    var repoDropdown = document.getElementsByClassName('repo-dropdown')[0].getElementsByTagName('ul')[0];
+    while (repoDropdown.firstChild) {
+      repoDropdown.removeChild(repoDropdown.firstChild);
+    }
+    repos.forEach(function(repo) {
+      var repoItem = document.createElement('li');
+      repoItem.innerHTML = repo;
+      repoItem.setAttribute('class', 'dropdown-item');
+      repoDropdown.appendChild(repoItem);
     });
   }
 });

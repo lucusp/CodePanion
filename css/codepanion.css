@@ -1,3 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 #codepanion {
   border: 3px solid #343436;
 }
@@ -44,7 +51,6 @@
   -webkit-transform: scale(0.9) translateX(-50%);
   -ms-transform: scale(0.9) translateX(-50%);
   transform: scale(0.9) translateX(-50%);
-  max-height: 75vh;
   min-width: 850px;
   max-width: 1150px;
   padding: 0;
@@ -70,7 +76,6 @@
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  max-height: 75vh;
   position: relative;
 }
 
@@ -81,7 +86,6 @@
   flex: 1;
   padding: 20px !important;
   color: #222;
-  max-height: 75vh;
   overflow: auto;
 }
 
@@ -104,6 +108,7 @@
 }
 
 .dropdown {
+  float: left;
   display: inline-block;
   position: relative;
   margin-top: 5px;
@@ -128,7 +133,7 @@
   line-height: 40px;
   font-size: 14px;
   background: #f9f9f9;
-  border-bottom: 3px solid #9575CD;
+  border-bottom: 3px solid #0ebeff;
 }
 
 .dropdown .dropdown-top-bar > .nc-icon {
@@ -165,16 +170,22 @@
 }
 
 .dropdown ul li:hover {
-  background: #9575CD;
+  background: #0ebeff;
   color: white;
 }
 
 .dropdown-open {
-  height: 180px;
-  overflow-y: scroll;
+  height: 200px;
 }
 
-.branch {
+.branch-dropdown {
   width: 120px;
   float: right;
+}
+
+.file-browser {
+  margin-top: 60px;
+  width: 100%; 
+  height: 400px;
+  background: #f4f4f4;
 }
