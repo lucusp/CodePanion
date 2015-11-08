@@ -99,6 +99,7 @@
 }
 
 .cp-modal-right {
+  -webkit-user-select: none;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;
