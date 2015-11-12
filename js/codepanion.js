@@ -5,6 +5,8 @@ var github = {
   selectedBranch: null
 }
 
+var currentPath;
+
 var button = document.createElement('button');
 button.setAttribute('id', 'codepanion');
 button.setAttribute('class', 'button button-medium');
@@ -36,6 +38,7 @@ xmr.onreadystatechange = function() {
     port.postMessage('getRepos');
     container.innerHTML = xmr.responseText;
     document.body.appendChild(container);
+    currentPath = document.getElementsByClassName('current-path')[0].getElementsByTagName('ul')[0];
 
     var dropdowns = document.getElementsByClassName('dropdown');
     var repoSelect = document.getElementsByClassName('repo-dropdown')[0];
@@ -52,6 +55,9 @@ xmr.onreadystatechange = function() {
           while (fileBrowser.firstChild) {
             fileBrowser.removeChild(fileBrowser.firstChild);
           }
+          var path = document.createElement('li');
+          path.innerHTML = event.target.innerHTML;
+          currentPath.appendChild(path);
           select.innerHTML = event.target.innerHTML;
           github.selectedRepo = event.target.innerHTML;
           port.postMessage({ getBranch: event.target.innerHTML });
@@ -122,6 +128,39 @@ port.onMessage.addListener(function(message) {
         }
       } else {
         treeItem.setAttribute('class', 'folder');
+        treeItem.onclick = function() {
+          github.folder = treeItem.innerHTML;
+          port.postMessage({ getContents:  github });
+        }
+      }
+      fileBrowser.appendChild(treeItem);
+    });
+  }
+
+  if(message.returnContents) {
+    console.log(message.returnContents);
+    var tree = message.returnContents;
+    var fileBrowser = document.getElementsByClassName('file-browser')[0].getElementsByTagName('ul')[0];
+    while (fileBrowser.firstChild) {
+      fileBrowser.removeChild(fileBrowser.firstChild);
+    }
+    tree.forEach(function(item) {
+      var treeItem = document.createElement('li');
+      treeItem.setAttribute('data-path', item.path);
+      treeItem.innerHTML = item.name;
+      if(item.type === 'file') {
+        treeItem.setAttribute('class', 'file');
+        if(item.name.indexOf('html') > -1 || item.name.indexOf('css') > -1 || item.name.indexOf('js') > -1) {
+          treeItem.onclick = function() {
+            treeItem.classList.toggle('checked');
+          }
+        }
+      } else {
+        treeItem.setAttribute('class', 'folder');
+        treeItem.onclick = function() {
+          github.folder = treeItem.getAttribute('data-path');
+          port.postMessage({ getContents:  github });
+        }
       }
       fileBrowser.appendChild(treeItem);
     });

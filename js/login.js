@@ -9,7 +9,7 @@ if(githubCache) {
 
   githubCache.me().done(function(data) {
     github.username = data.alias;
-    chrome.storage.local.set({ 'github': JSON.stringify(github) }, null);
+    chrome.storage.local.set({ 'githubStore': JSON.stringify(github) }, null);
   });
 
 } else {
@@ -23,7 +23,7 @@ if(githubCache) {
       result.me().done(function(data) {
         github.username = data.alias;
 
-        chrome.storage.local.set({ 'github': JSON.stringify(github) }, null);
+        chrome.storage.local.set({ 'githubStore': JSON.stringify(github) }, null);
         document.getElementById('login').style.display = "none";
       });
     })  

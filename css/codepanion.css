@@ -34,6 +34,7 @@
   -ms-transform-origin: top right;
   transform-origin: top right;
   z-index: 9999;
+  max-height: 75vh;
 }
 
 .cp_modal {
@@ -47,7 +48,7 @@
   -ms-flex-direction: column;
   flex-direction: column;
   width: 50vw;
-  max-height: 450px;
+  max-height: 75vh;
   left: 50%;
   top: 70px;
   -webkit-transform: scale(0.9) translateX(-50%);
@@ -108,7 +109,6 @@
   overflow: auto;
   background: #f9f9f9;
   padding: 20px !important;
-  height: 450px;
 }
 
 .dropdown {
@@ -187,7 +187,7 @@
 }
 
 .file-browser {
-  margin-top: 60px;
+  margin-top: 55px;
   width: 100%; 
   /*background: #f4f4f4;*/
 }
@@ -245,4 +245,28 @@
 
 .checked:hover:before {
   background-image: url('data:image/svg+xml;utf8,<svg class="nc-icon glyph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16"><g> <polygon fill="#fff" points="5.6,9.6 2.4,6.4 0,8.8 5.6,14.4 16,4 13.6,1.6 "></polygon> </g></svg>');
+}
+
+.current-path {
+  margin-top: 10px;
+  display: block;
+  color: black;
+  z-index: 9999;
+  /*background: red;*/
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  font-family: 'Lato';
+  color: #016DE8;
+  padding: 0 10px;
+  text-align: right;
+}
+
+.current-path ul {
+  list-style: none;
+}
+
+.current-path ul li {
+  cursor: pointer;
 }

@@ -40,6 +40,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
         return 0;
       }
+
       var githubInstance = new Github({
         token: github.token,
         auth: 'oauth'
@@ -53,6 +54,33 @@ chrome.runtime.onConnect.addListener(function(port) {
         });
         getTree.sort(sortTree);
         port.postMessage({ returnTree: getTree });
+      });
+    }
+
+    if(message.getContents) {
+      function sortTree(entry) {
+        if(entry.type === 'tree') {
+          return -1;
+        } else {
+          return 1;
+        }
+
+        return 0;
+      }
+
+      var githubInstance = new Github({
+        token: github.token,
+        auth: 'oauth'
+      });
+
+      var getTree = [];
+
+      githubInstance.getRepo(github.username, message.getContents.selectedRepo).contents(message.getContents.selectedBranch, message.getContents.folder, function(err, contents) {
+        contents.forEach(function(item) {
+          getTree.push(item);
+        });
+        getTree.sort(sortTree);
+        port.postMessage({ returnContents: getTree });
       });
     }
 
