@@ -8,14 +8,14 @@ var cp = (function() {
 
   //insert .html file from github
   Module.tagContent = function(content) {
-    //  we probably need to leave tags alone
-    //  that are inside <code> or <pre> tags
+
+    //head details: return [contentHead] for HTML settings
     var head = ['<head>', '</head>'],
         contentHead = '',
         headStart = content.toLowerCase().indexOf(head[0]),
         headEnd = content.toLowerCase().indexOf(head[1]);
     
-    //we need to extract these and place in CSS settings
+    //link details: return [links] for CodePen CSS settings
     var link = '<link',
         linkEnd = '>',
         links = [],
@@ -23,23 +23,22 @@ var cp = (function() {
         hrefText = 'href=',
         linkFirst = content.toLowerCase().indexOf(link);
     
-    //only concerned with external scripts
-    //place in JS settings
+    //script details: return [scripts] for CodePen JS settings
     var script = ['<script', '</script'],
         scripts = [],
         scriptSrc = '',
         srcText = 'src=',
         scriptFirst = content.toLowerCase().indexOf(script[0]),
         scriptEnd = content.toLowerCase().indexOf(script[1]);
-        
+    
+    //body details: return [bodyContent] for CodePen editor
     var body = ['<body>', '</body>'],
         bodyContent = '',
         bodyStart = content.toLowerCase().indexOf(body[0]),
         bodyEnd = content.toLowerCase().indexOf(body[1]);
     
     
-    //start putting together pieces
-    
+    //gather link tags into an array
     if (linkFirst !== -1){
       var numLinks = content.split(link).length - 1;
       for(var l = 0; l <= numLinks - 1; l++){
@@ -50,16 +49,23 @@ var cp = (function() {
       }
     }
     
+    /*
+      @WIP:
+        a) only get EXTERNAL scripts
+        b) extract and place into array
+    */
     if (scriptFirst !== -1){
       var numScripts = content.split(script[0]).length - 1;
       console.log("Number of scripts", numScripts);
     }
     
+    //extract [head] content
     if (headStart !== -1) {
       contentHead = content.slice(headStart + head[0].length, headEnd);
       //console.log(contentHead);
     }
 
+    //extract [body] content
     if (bodyStart !== -1) {
       bodyContent = content.slice(bodyStart + body[0].length, bodyEnd);
       //ghContent.textContent = bodyContent;
@@ -106,6 +112,13 @@ var cp = (function() {
 
   //private helper fns
   //...
+  
+  /*
+    strip external sources: 
+      srcType = 'href' || 'src'
+      tags = links || scripts (array)
+  */
+    
   function stripSrc(srcType, tags){
     
     var stripTag = [];
@@ -123,7 +136,7 @@ var cp = (function() {
     
   };
 
+  //@End
   return Module;
-  
   
 }());
